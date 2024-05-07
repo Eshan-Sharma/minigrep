@@ -7,7 +7,7 @@ fn main() {
     let args: Vec<String> = env::args().collect(); //future optimization use args_os
                                                    //dbg!(args);
 
-    let config = Config::new(&args);
+    let config = Config::build(&args);
 
     println!("Searching for {}", config.query);
     println!("In file {}", config.file_path);
@@ -27,7 +27,7 @@ struct Config {
     file_path: String,
 }
 impl Config {
-    fn new(args: &[String]) -> Config {
+    fn build(args: &[String]) -> Config {
         if args.len() < 3 {
             panic!("not enough arguments");
         }
