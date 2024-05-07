@@ -1,4 +1,3 @@
-use core::arch;
 use std::error::Error;
 use std::{env, fs};
 
