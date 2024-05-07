@@ -1,5 +1,5 @@
 use std::error::Error;
-use std::fs;
+use std::{fs, result};
 
 pub struct Config {
     pub query: String,
@@ -21,11 +21,19 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     //Box dyn Error is dynamic error trait
     let content = fs::read_to_string(config.file_path)?;
     //Takes in a path and opens that file, returns a std::io::Result<String> of the file content
-    println!("With text:\n{content}");
+    for line in search(&config.query, &content) {
+        println!("{line}");
+    }
     Ok(())
 }
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    vec![]
+    let mut results = Vec::new();
+    for line in contents.lines() {
+        if line.contains(query) {
+            results.push(line);
+        }
+    }
+    results
 }
 
 #[cfg(test)]
