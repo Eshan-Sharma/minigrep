@@ -15,7 +15,10 @@ fn main() {
 
     println!("Searching for {}", config.query);
     println!("In file {}", config.file_path);
-    run(config);
+    if let Err(e) = run(config) {
+        println!("Application returned error: {e}");
+        process::exit(1);
+    }
 }
 fn run(config: Config) -> Result<(), Box<dyn Error>> {
     //Box dyn Error is dynamic error trait
