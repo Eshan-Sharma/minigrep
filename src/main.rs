@@ -1,6 +1,6 @@
-use std::env;
 use std::fs;
 use std::process;
+use std::{env, error::Error};
 fn main() {
     // str::env::args returns an iterator
     //iterator produces a series of values which are collected by collect()
@@ -17,11 +17,12 @@ fn main() {
     println!("In file {}", config.file_path);
     run(config);
 }
-fn run(config: Config) {
-    let content =
-        fs::read_to_string(config.file_path).expect("Should have been able to read the file");
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    //Box dyn Error is dynamic error trait
+    let content = fs::read_to_string(config.file_path)?;
     //Takes in a path and opens that file, returns a std::io::Result<String> of the file content
     println!("With text:\n{content}");
+    Ok(())
 }
 
 // Problems with the above code
