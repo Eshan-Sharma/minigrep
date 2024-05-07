@@ -1,5 +1,5 @@
 use std::env;
-
+use std::fs;
 fn main() {
     // str::env::args returns an iterator
     //iterator produces a series of values which are collected by collect()
@@ -12,4 +12,7 @@ fn main() {
 
     println!("Searching for {}", query);
     println!("In file {}", file_path);
+
+    let content = fs::read_to_string(file_path).expect("Should have been able to read the file"); //Takes in a path and opens that file, returns a std::io::Result<String> of the file content
+    println!("With text:\n{content}");
 }
