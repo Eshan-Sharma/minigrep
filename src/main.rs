@@ -1,8 +1,6 @@
 use minigrep::Config;
-// use std::fs;
 use std::env;
 use std::process;
-// use std::{env, error::Error};
 fn main() {
     // str::env::args returns an iterator
     //iterator produces a series of values which are collected by collect()
@@ -17,39 +15,9 @@ fn main() {
 
     println!("Searching for {}", config.query);
     println!("In file {}", config.file_path);
-    // if let Err(e) = run(config) {
-    //     println!("Application returned error: {e}");
-    //     process::exit(1);
-    // }
+
     if let Err(e) = minigrep::run(config) {
         println!("Application returned error: {e}");
         process::exit(1);
     }
 }
-// fn run(config: Config) -> Result<(), Box<dyn Error>> {
-//     //Box dyn Error is dynamic error trait
-//     let content = fs::read_to_string(config.file_path)?;
-//     //Takes in a path and opens that file, returns a std::io::Result<String> of the file content
-//     println!("With text:\n{content}");
-//     Ok(())
-// }
-
-// Problems with the above code
-// 1. Long main function with a lot of variables, the more the variables, harder to keep track of the purpose of each
-// 2. Long function is difficult to reason with, harder to test and harder to change
-// 3. Uses 'expect' to print error message but does not give us the real reason why reading failed
-
-// struct Config {
-//     query: String,
-//     file_path: String,
-// }
-// impl Config {
-//     fn build(args: &[String]) -> Result<Config, &'static str> {
-//         if args.len() < 3 {
-//             return Err("not enough arguments");
-//         }
-//         let query = args[1].clone();
-//         let file_path = args[2].clone();
-//         Ok(Config { query, file_path })
-//     }
-// }
